@@ -10,8 +10,8 @@ This project involves the use of multiple datasets and configurable parameters f
 
 The `data_loader.py` file located in the `data` folder defines four datasets:
 
-- **MCG_019_result**: Represents averaged data over 19 repetitions.
-- **MCG_101_result**: Represents averaged data over 101 repetitions.
+- **MCG_019_result**: Represents MCG averaged data over 19 repetitions.
+- **MCG_101_result**: Represents MCG averaged data over 101 repetitions.
 - **ECG_Data_result**: Represents ECG signals with simulated noise.
 - **MCG_self_result**: Represents MCG signals with simulated noise.
 
