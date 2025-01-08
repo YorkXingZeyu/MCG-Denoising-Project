@@ -1,0 +1,33 @@
+# 相关参数设计
+seed: 42
+device: cuda:0
+
+# MCG_self_result; MCG_019_result; MCG_101_result; ECG_Data_result
+output_folder: MCG_101_result
+
+confidence:
+    sigma: 12
+    distance: 55
+    confidence_weight: 1
+
+train:
+  freq_loss_weight: 0
+  batch_size: 32
+  lr: 0.0006
+  epochs: 1000
+  step_size: 1000
+  gamma: 0
+  early_stopping: 10
+  weight_decay: 0 
+  cnet_condition: False
+  unet_condition: False
+  cnetloss_print_weight: 100
+  unetloss_print_weight: 10
+  train_cnet: False
+  train_unet: True
+  
+test:
+  batch_size: 10
+  evaluate_model: True
+
+
