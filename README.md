@@ -86,6 +86,6 @@ Example Usage:
 ## How to use
    ```bash
    python main.py
-
+```
 
 
