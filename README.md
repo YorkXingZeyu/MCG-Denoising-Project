@@ -83,18 +83,9 @@ Example Usage:
 
 ---
 
-## Example Configuration (`base.yaml`)
-
-```yaml
-output_folder: MCG_101_result
-sigma: 12
-distance: 55
-confidence_weight: 1
-cnet_condition: False
-unet_condition: False
-train_cnet: False
-train_unet: True
-evaluate_model: True
+## How to use
+   ```bash
+   python main.py
 
 
 
