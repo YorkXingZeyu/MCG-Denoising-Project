@@ -214,24 +214,7 @@ class Unet1D(nn.Module):
             x_self_cond = default(x_self_cond, lambda: torch.zeros_like(x))
             x = torch.cat((x_self_cond, x), dim = 1)
         
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("input")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
-        
         x = self.init_conv(x)
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("init_conv")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
         
         r = x.clone()
         h = []
@@ -247,44 +230,10 @@ class Unet1D(nn.Module):
             h.append(x)
 
             x = downsample(x)
-            # 可视化输出
-            plt.figure(figsize=(20, 5))
-            plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-            plt.title("downsample")
-            shape_info = f"x.shape = {x.shape}"
-            plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-            plt.show()
-            plt.close()
 
         x = self.mid_block1(x)
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("mid_block1")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
-        
-        x = self.mid_gate(x)
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("mid_gate")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
-        
+        x = self.mid_gate(x)     
         x = self.mid_block2(x)
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("mid_block2")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
 
         for block1, block2, gate, upsample in self.ups:
             x = torch.cat((x, h.pop()), dim = 1)
@@ -295,36 +244,10 @@ class Unet1D(nn.Module):
             x = gate(x)
 
             x = upsample(x)
-            # 可视化输出
-            plt.figure(figsize=(20, 5))
-            plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-            plt.title("upsample")
-            shape_info = f"x.shape = {x.shape}"
-            plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-            plt.show()
-            plt.close()
 
         x = torch.cat((x, r), dim = 1)
-
-        x = self.final_res_block(x)
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("final_res_block")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
-        
+        x = self.final_res_block(x)   
         x = self.final_conv(x)
-        # 可视化输出
-        plt.figure(figsize=(20, 5))
-        plt.plot(x[0,0,:].detach().cpu().numpy())  # 可视化第一个通道的输出
-        plt.title("final_conv")
-        shape_info = f"x.shape = {x.shape}"
-        plt.text(0.5, 0.95, shape_info, ha='center', va='top', transform=plt.gca().transAxes, fontsize=12, color='red')
-        plt.show()
-        plt.close()
         
 
         return x
